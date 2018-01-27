@@ -9,6 +9,7 @@ function Chef:init(x, y)
     self.height = 32
     self.moving = false
     self.goal = nil
+    self.direction = 'down'
 
     self.speed = 150
 
@@ -45,6 +46,17 @@ function Chef:draw()
     love.graphics.setColor(100, 0, 255)
     love.graphics.rectangle('fill', self.position.x+4, self.position.y+4, self.width-8, self.height-8)
 
+    love.graphics.setColor(0, 255, 0)
+    if self.direction == 'up' then
+        love.graphics.rectangle('fill', self.position.x + 14, self.position.y + 2, 4, 4)
+    elseif self.direction == 'right' then
+        love.graphics.rectangle('fill', self.position.x + 26, self.position.y + 14, 4, 4)
+    elseif self.direction == 'down' then
+        love.graphics.rectangle('fill', self.position.x + 14, self.position.y + 26, 4, 4)
+    elseif self.direction == 'left' then
+        love.graphics.rectangle('fill', self.position.x + 2, self.position.y + 14, 4, 4)
+    end
+
 end
 
 function Chef:controllerUpdate()
@@ -56,14 +68,18 @@ function Chef:controllerUpdate()
         if math.abs(leftStickX) > math.abs(leftStickY) then
             if leftStickX > game.controller.deadZone then
                 self:setGoal(self.position.x+32, self.position.y)
+                self.direction = 'right'
             elseif leftStickX < -game.controller.deadZone then
                 self:setGoal(self.position.x-32, self.position.y)
+                self.direction = 'left'
             end
         else
             if leftStickY > game.controller.deadZone then
                 self:setGoal(self.position.x, self.position.y+32)
+                self.direction = 'down'
             elseif leftStickY < -game.controller.deadZone then
                 self:setGoal(self.position.x, self.position.y-32)
+                self.direction = 'up'
             end
         end
     end
