@@ -1,6 +1,9 @@
 game = {}
 
 State = require 'libraries/hump/gameState'
+Class = require 'libraries/hump/class'
+Vector = require 'libraries/hump/vector'
+HC = require 'libraries/hc'
 
 function love.load()
 
@@ -8,14 +11,14 @@ function love.load()
     game.height = 1080
     love.window.setMode(game.width, game.height, {vsync='false', fullscreen = true, fullscreentype='desktop'})
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    love.graphics.setBackgroundColor(255, 255, 255)
 
     State.registerEvents()
     game.states = {
-        menu = nil,
+        load = require 'states/load',
+        menu = require 'states/menu',
         game = require 'states/game'
     }
-    State.switch(game.states.game)
+    State.switch(game.states.load)
 
 
 end
