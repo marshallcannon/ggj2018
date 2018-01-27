@@ -24,7 +24,7 @@ function Fighter:update(dt)
         self.bulletTimer = self.bulletTimer -dt
     end
 
-    self:joystickUpdate(dt)
+    self:controllerUpdate(dt)
 
     Sprite.update(self, dt)
 
@@ -40,7 +40,7 @@ function Fighter:draw()
 
 end
 
-function Fighter:joystickUpdate(dt)
+function Fighter:controllerUpdate(dt)
 
     local leftStickX = self.controller:getAxis(1)
     local rightTrigger = self.controller:getAxis(6)

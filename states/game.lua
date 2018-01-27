@@ -1,5 +1,7 @@
 local Fighter = require 'players/fighter/fighter'
+local Chef = require 'players/chef/chef'
 local Monster = require 'monsters/monster'
+local Kitchen = require 'kitchen/kitchen'
 
 local GameState = {}
 
@@ -7,8 +9,11 @@ function GameState:enter(previous, level)
 
     game.objects = Group(true)
     game.monsters = Group(true)
+    
+    game.kitchen = Kitchen()
 
-    self.fighter = Fighter(300, 100)
+    game.fighter = Fighter(300, 100)
+    game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
     local newMonster = Monster(350, 100)
 
     self.walls = {}
@@ -21,11 +26,16 @@ function GameState:enter(previous, level)
         wall.static = true
     end
 
+
 end
 
 function GameState:update(dt)
 
-    self.fighter:update(dt)
+    --Cooking
+    game.chef:update(dt)
+
+    --Combat
+    game.fighter:update(dt)
     game.objects:update(dt)
     game.monsters:update(dt)
 
@@ -33,9 +43,18 @@ end
 
 function GameState:draw()
 
+    --Cooking Screen
     love.graphics.scale(4, 4)
     love.graphics.setColor(200, 200, 200)
     love.graphics.rectangle('fill', 0, 0, 240, 270)
+    game.kitchen:draw()
+
+    game.chef:draw()
+
+    --Combat Screen
+    love.graphics.origin()
+    love.graphics.scale(4, 4)
+
     love.graphics.setColor(100, 100, 100)
     love.graphics.rectangle('fill', 240, 0, 240, 270)
 
@@ -47,10 +66,7 @@ function GameState:draw()
     game.objects:draw()
     game.monsters:draw()
 
-    self.fighter:draw()
-
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+    game.fighter:draw()
 
 end
 
@@ -65,7 +81,7 @@ function GameState:joystickpressed(joystick, button)
     if joystick == game.controller.controllerList[1] then
 
     elseif joystick == game.controller.controllerList[2] then
-        self.fighter:joystickpressed(button)
+        game.fighter:joystickpressed(button)
     end
 
 end

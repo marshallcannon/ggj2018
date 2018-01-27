@@ -29,7 +29,7 @@ end
 
 function Monster:distanceToFighter()
 
-    return self.position:dist(game.states.game.fighter)
+    return self.position:dist(game.fighter)
 
 end
 
