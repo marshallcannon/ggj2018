@@ -1,13 +1,20 @@
-local Fighter = Class{}
+local Fighter = Class{
+    __includes = Sprite
+}
 
 function Fighter:init(x, y)
 
-    self.position = Vector(x, y)
+    Sprite.init(self, x, y)
 
     self.width = 16
     self.height = 16
-    self.velocity = Vector(0, 0)
+    self.body = HC.rectangle(self.position.x, self.position.y, self.width, self.height)
+    self.body.parent = self
     self.controller = game.controller.controllerList[2]
+    self.color = {255, 255, 255}
+
+    self.maxSpeed = 200
+    self.jumpPower = 300
 
 end
 
@@ -15,13 +22,16 @@ function Fighter:update(dt)
 
     self:joystickUpdate(dt)
 
-    self.position.x = self.position.x + self.velocity.x*dt
+    Sprite.update(self, dt)
+
+    if self.onGround then self.color = {0, 255, 0}
+    else self.color = {0, 0, 255} end
 
 end
 
 function Fighter:draw()
 
-    love.graphics.setColor(0, 255, 0)
+    love.graphics.setColor(self.color)
     love.graphics.rectangle('fill', self.position.x, self.position.y, 16, 16)
 
 end
@@ -29,28 +39,21 @@ end
 function Fighter:joystickUpdate(dt)
 
     local value = self.controller:getAxis(1)
-    print(value)
+
     if value > game.controller.deadZone then
-        self.velocity.x = value*50
+        self.velocity.x = value*self.maxSpeed
     elseif value < -game.controller.deadZone then
-        self.velocity.x = value*50
+        self.velocity.x = value*self.maxSpeed
     else
         self.velocity.x = 0
     end
 
 end
 
-function Fighter:joystickaxis(axis, value)
+function Fighter:joystickpressed(button)
 
-    if axis == 2 then
-        print(value)
-        if value > game.controller.deadZone then
-            self.velocity.x = value
-        elseif value < -game.controller.deadZone then
-            self.velocity.x = value
-        else
-            self.velocity.x = 0
-        end
+    if button == 1 then
+        self:jump()
     end
 
 end

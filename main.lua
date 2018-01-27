@@ -4,6 +4,7 @@ State = require 'libraries/hump/gameState'
 Class = require 'libraries/hump/class'
 Vector = require 'libraries/hump/vector'
 HC = require 'libraries/hc'
+Sprite = require 'sprites/sprite'
 
 function love.load()
 
@@ -11,6 +12,8 @@ function love.load()
     game.height = 1080
     love.window.setMode(game.width, game.height, {vsync='false', fullscreen = true, fullscreentype='desktop'})
     love.graphics.setDefaultFilter('nearest', 'nearest')
+
+    game.gravity = 800
 
     State.registerEvents()
     game.states = {
