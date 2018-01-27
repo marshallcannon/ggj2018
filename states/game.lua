@@ -1,6 +1,6 @@
 local Fighter = require 'players/fighter/fighter'
 local Chef = require 'players/chef/chef'
-local Monster = require 'monsters/monster'
+local Wiggles = require 'monsters/wiggles'
 local Kitchen = require 'kitchen/kitchen'
 
 local GameState = {}
@@ -8,13 +8,14 @@ local GameState = {}
 function GameState:enter(previous, level)
 
     game.objects = Group(true)
-    game.monsters = Group(true)
+    game.monsters = Group()
+    game.corpses = Group()
     
     game.kitchen = Kitchen()
 
     game.fighter = Fighter(300, 100)
     game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
-    local newMonster = Monster(350, 100)
+    local newMonster = Wiggles(350, 100)
 
     self.walls = {}
     table.insert(self.walls, HC.rectangle(240, 0, 10, 270))

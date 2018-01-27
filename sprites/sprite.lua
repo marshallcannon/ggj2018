@@ -21,6 +21,8 @@ function Sprite:init(x, y, image, width, height)
     self.useGravity = true
     self.color = {255, 0, 0}
 
+    game.objects:add(self)
+
 end
 
 function Sprite:update(dt)
@@ -59,6 +61,16 @@ function Sprite:move(x, y)
 
     self.position.x = self.position.x + x
     self.position.y = self.position.y + y
+    if self.body then
+        self.body:moveTo(self.position.x+self.width/2, self.position.y+self.height/2)
+    end
+
+end
+
+function Sprite:moveTo(x, y)
+
+    self.position.x = x
+    self.position.y = y
     if self.body then
         self.body:moveTo(self.position.x+self.width/2, self.position.y+self.height/2)
     end

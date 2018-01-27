@@ -12,8 +12,6 @@ function Bullet:init(x, y, velocityX, velocityY, width, height)
     self.velocity.y = velocityY or 0
     self.useGravity = false
 
-    game.objects:add(self)
-
 end
 
 function Bullet:update(dt)
