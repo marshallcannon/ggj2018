@@ -2,7 +2,9 @@ local GameState = {}
 
 function GameState:enter(previous, level)
 
-    self.fighter = require('players/fighter')(300, 100)
+    game.objects = Group(true)
+
+    self.fighter = require('players/fighter/fighter')(300, 100)
 
     self.walls = {}
     table.insert(self.walls, HC.rectangle(240, 0, 10, 270))
@@ -18,6 +20,7 @@ end
 function GameState:update(dt)
 
     self.fighter:update(dt)
+    game.objects:update(dt)
 
 end
 
@@ -32,6 +35,10 @@ function GameState:draw()
     love.graphics.setColor(255, 255, 255)
     for i,wall in ipairs(self.walls) do
         wall:draw('line')
+    end
+
+    for i, object in ipairs(game.objects:getAll()) do
+        object:draw()
     end
 
     self.fighter:draw()

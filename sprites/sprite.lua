@@ -1,20 +1,25 @@
 Sprite = Class{}
 
-function Sprite:init(x, y, image)
+function Sprite:init(x, y, image, width, height)
 
     self.position = Vector(x, y)
     self.image = image
+    self.width = width or image:getWidth() or 16
+    self.height = height or image:getHeight() or 16
 
+    self.body = HC.rectangle(self.position.x, self.position.y, self.width, self.height)
+    self.body.parent = self
     self.velocity = Vector(0, 0)
     self.onGround = false
     self.maxSpeed = 30
     self.jumpPower = 50
+    self.useGravity = true
 
 end
 
 function Sprite:update(dt)
 
-    if self.body then
+    if self.useGravity then
         self:gravity(dt)
     end
 
@@ -108,6 +113,12 @@ function Sprite:getOverlap(body1, body2)
     local dx = math.min(axmax, bxmax) - math.max(axmin, bxmin)
     local dy = math.min(aymax, bymax) - math.max(aymin, bymin)
     return dx*dy
+
+end
+
+function Sprite:destroy()
+
+    self.dead = true
 
 end
 

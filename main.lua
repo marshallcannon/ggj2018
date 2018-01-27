@@ -5,6 +5,7 @@ Class = require 'libraries/hump/class'
 Vector = require 'libraries/hump/vector'
 HC = require 'libraries/hc'
 Sprite = require 'sprites/sprite'
+Group = require 'util/group'
 
 function love.load()
 
