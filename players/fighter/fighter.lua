@@ -13,7 +13,7 @@ function Fighter:init(x, y)
 
     self.maxSpeed = 200
     self.jumpPower = 300
-    self.bulletTimerMax = 0.5
+    self.bulletTimerMax = 0.3
     self.bulletTimer = 0
 
 end
@@ -64,7 +64,9 @@ end
 function Fighter:joystickpressed(button)
 
     if button == 1 then
-        self:jump()
+        if self.onGround then
+            self:jump()
+        end
     end
 
 end
@@ -74,9 +76,9 @@ function Fighter:shoot()
     local dt = love.timer.getDelta()
     if self.bulletTimer <= 0 then
         if self.direction == 'left' then
-            Bullet(self.position.x, self.position.y, -300)
+            Bullet(self.position.x+self.width/2, self.position.y+self.height/2, -300)
         else
-            Bullet(self.position.x, self.position.y, 300)
+            Bullet(self.position.x+self.width/2, self.position.y+self.height/2, 300)
         end
         self.bulletTimer = self.bulletTimerMax
     end

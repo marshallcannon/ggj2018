@@ -4,8 +4,13 @@ function Sprite:init(x, y, image, width, height)
 
     self.position = Vector(x, y)
     self.image = image
-    self.width = width or image:getWidth() or 16
-    self.height = height or image:getHeight() or 16
+    if self.image then
+        self.width = width or image:getWidth()
+        self.height = height or image:getHeight()
+    else
+        self.width = width or 16
+        self.height = height or 16
+    end
 
     self.body = HC.rectangle(self.position.x, self.position.y, self.width, self.height)
     self.body.parent = self
@@ -14,6 +19,7 @@ function Sprite:init(x, y, image, width, height)
     self.maxSpeed = 30
     self.jumpPower = 50
     self.useGravity = true
+    self.color = {255, 0, 0}
 
 end
 
@@ -31,12 +37,21 @@ function Sprite:update(dt)
         self:staticCollisions(staticCollisions)
     end
 
+    if self.position.y >= 270 then
+        self.position.y = -self.height
+    end
+
 end
 
 function Sprite:draw()
 
-    love.graphics.setColor(255, 255, 255)
-    if self.image then love.graphics.draw(self.image, self.position.x, self.position.y) end
+    if self.image then
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.draw(self.image, self.position.x, self.position.y)
+    else
+        love.graphics.setColor(self.color)
+        love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
+    end
 
 end
 
@@ -53,10 +68,7 @@ end
 function Sprite:jump(jumpPower)
 
     jumpPower = jumpPower or self.jumpPower
-    print(jumpPower)
-    if self.onGround then
-        self.velocity.y = self.velocity.y - jumpPower
-    end
+    self.velocity.y = self.velocity.y - jumpPower
 
 end
 
@@ -74,7 +86,7 @@ function Sprite:getCollisions()
     for body, separatingVector in pairs(allCollisions) do
 
         if body.static then table.insert(staticCollisions, {body = body, separatingVector = separatingVector})
-        else collisions[body] = separatingVector end
+        else table.insert(collisions, {body = body, separatingVector = separatingVector}) end
 
     end
 
@@ -84,7 +96,7 @@ end
 
 function Sprite:collisions(collisions)
 
-    for other, separatingVector in pairs(collisions) do
+    for i, collision in pairs(collisions) do
 
     end
 
@@ -98,11 +110,36 @@ function Sprite:staticCollisions(collisions)
         if self:getOverlap(self.body, collision.body) > 0 then
             self:move(collision.separatingVector.x, collision.separatingVector.y)
             if collision.separatingVector.y < 0 then
-                self.velocity.y = 0
-                self.onGround = true
+                self:hitBottom()
+            elseif collision.separatingVector.y > 0 then
+                self:hitTop()
+            end
+            if math.abs(collision.separatingVector.x) > 0 then
+                self:hitSide()
             end
         end
     end
+
+end
+
+function Sprite:hitTop()
+
+    if self.velocity.y <= 0 then
+        self.velocity.y = 0
+    end
+
+end
+
+function Sprite:hitBottom()
+
+    if self.velocity.y >= 0 then
+        self.velocity.y = 0
+        self.onGround = true
+    end
+
+end
+
+function Sprite:hitSide()
 
 end
 
@@ -119,6 +156,10 @@ end
 function Sprite:destroy()
 
     self.dead = true
+    if self.body then
+        HC.remove(self.body)
+        self.body = nil
+    end
 
 end
 

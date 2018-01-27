@@ -11,7 +11,7 @@ function love.load()
 
     game.width = 1920
     game.height = 1080
-    love.window.setMode(game.width, game.height, {vsync='false', fullscreen = true, fullscreentype='desktop'})
+    love.window.setMode(game.width, game.height, {vsync='false', fullscreen = false, fullscreentype='desktop'})
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     game.gravity = 800

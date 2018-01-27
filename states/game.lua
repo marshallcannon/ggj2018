@@ -1,16 +1,22 @@
+local Fighter = require 'players/fighter/fighter'
+local Monster = require 'monsters/monster'
+
 local GameState = {}
 
 function GameState:enter(previous, level)
 
     game.objects = Group(true)
+    game.monsters = Group(true)
 
-    self.fighter = require('players/fighter/fighter')(300, 100)
+    self.fighter = Fighter(300, 100)
+    local newMonster = Monster(350, 100)
 
     self.walls = {}
     table.insert(self.walls, HC.rectangle(240, 0, 10, 270))
-    table.insert(self.walls, HC.rectangle(240, 260, 240, 10))
+    table.insert(self.walls, HC.rectangle(240, 260, 90, 10))
+    table.insert(self.walls, HC.rectangle(390, 260, 90, 10))
     table.insert(self.walls, HC.rectangle(470, 0, 10, 270))
-    table.insert(self.walls, HC.rectangle(240, 0, 240, 10))
+    table.insert(self.walls, HC.rectangle(280, 220, 160, 10))
     for i,wall in ipairs(self.walls) do
         wall.static = true
     end
@@ -21,6 +27,7 @@ function GameState:update(dt)
 
     self.fighter:update(dt)
     game.objects:update(dt)
+    game.monsters:update(dt)
 
 end
 
@@ -37,11 +44,13 @@ function GameState:draw()
         wall:draw('line')
     end
 
-    for i, object in ipairs(game.objects:getAll()) do
-        object:draw()
-    end
+    game.objects:draw()
+    game.monsters:draw()
 
     self.fighter:draw()
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
 
 end
 
