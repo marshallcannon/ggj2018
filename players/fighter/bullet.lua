@@ -26,7 +26,6 @@ function Bullet:draw()
     love.graphics.setColor(255, 0, 0)
     love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
     love.graphics.setColor(255, 255, 255)
-    self.body:draw()
 
 end
 

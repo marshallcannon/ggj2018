@@ -20,6 +20,10 @@ end
 
 function Fighter:update(dt)
 
+    if self.bulletTimer > 0 then
+        self.bulletTimer = self.bulletTimer -dt
+    end
+
     self:joystickUpdate(dt)
 
     Sprite.update(self, dt)
@@ -68,9 +72,7 @@ end
 function Fighter:shoot()
 
     local dt = love.timer.getDelta()
-    if self.bulletTimer > 0 then
-        self.bulletTimer = self.bulletTimer -dt
-    else
+    if self.bulletTimer <= 0 then
         if self.direction == 'left' then
             Bullet(self.position.x, self.position.y, -300)
         else
