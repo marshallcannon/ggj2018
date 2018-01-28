@@ -47,6 +47,18 @@ function LoadState:enter()
     game.itemList = require 'players/chef/items'
     game.levels = require 'listOfLevels'
 
+    game.redShader = love.graphics.newShader( [[
+
+        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) {
+            vec4 pixel = Texel(texture, texture_coords);
+            pixel.r = 1;
+            pixel.g = 0;
+            pixel.b = 0;
+            return pixel;
+        }
+
+    ]])
+
     State.switch(game.states.game, game.levels[1])
 
 end
