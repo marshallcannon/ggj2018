@@ -22,8 +22,13 @@ Levels[1] = Level({
     {0,6,4,1},
     {20,6,4,1}
 })
-Levels[1]:addOrder({game.itemList.Wiggles, game.itemList.Wiggles, game.itemList.Wiggles, game.itemList.Wiggles})
+Levels[1]:addOrder({game.itemList.Wiggles, game.itemList.Wiggles})
 Levels[1]:addOrder({game.itemList.Wiggles})
+Levels[1]:addOrder({game.itemList.Wiggles})
+Levels[1]:addOrder({game.itemList.Wiggles})
+Levels[1]:addOrder({game.itemList.Wiggles})
+Levels[1]:addOrder({game.itemList.Wiggles})
+Levels[1].spawnList = {Wiggles}
 
 Levels[2] = Level({
     --[[Walls]]
@@ -41,8 +46,13 @@ Levels[2] = Level({
     {0,2,3,1},
     {21,2,3,1}
 })
-Levels[2]:addOrder({game.itemList.Wiggles,game.itemList.Wiggles})--2 incredient mix A+A, B+B, B+A
-
+Levels[2]:addOrder({game.itemList.Wiggles, game.itemList.Wiggles})
+Levels[2]:addOrder({game.itemList.Hunter, game.itemList.Hunter})
+Levels[2]:addOrder({game.itemList.Wiggles, game.itemList.Wiggles})
+Levels[2]:addOrder({game.itemList.Hunter, game.itemList.Hunter})
+Levels[2]:addOrder({game.itemList.Wiggles, game.itemList.Hunter})
+Levels[2].spawnList = {Wiggles,Hunter}
+Levels[2].spawnRate = 8
 
 Levels[3] = Level({
     --[[Walls]]
@@ -63,7 +73,11 @@ Levels[3] = Level({
     {0,1,4,1},
     {21,1,4,1}
 })
-Levels[3]:addOrder({game.itemList.Wiggles,game.itemList.Wiggles})--All Stalks
-
+Levels[3]:addOrder({game.itemList.MiniStalks,game.itemList.MiniStalks})
+Levels[3]:addOrder({game.itemList.MiniStalks})
+Levels[3]:addOrder({game.itemList.MiniStalks,game.itemList.MiniStalks, game.itemList.MiniStalks})
+Levels[3]:addOrder({game.itemList.Shelly})
+Levels[3].spawnList = {Stalks,Stalks,Shelly}
+Levels[3].spawnRate = 8
 
 return Levels
