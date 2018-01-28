@@ -17,6 +17,10 @@ function Fighter:init(x, y)
     self.jumpPower = 300
     self.bulletTimerMax = 0.3
     self.bulletTimer = 0
+    self.stunned = false
+    self.stunnedTime = 1.5
+    self.stunnedTimerMax = 0.05
+    self.stunnedTimer = self.stunnedTimerMax
     
     game.objects:remove(self)
 
@@ -28,12 +32,11 @@ function Fighter:update(dt)
         self.bulletTimer = self.bulletTimer - dt
     end
 
-    self:controllerUpdate(dt)
+    if not self.stunned then
+        self:controllerUpdate(dt)
+    end
 
     Sprite.update(self, dt)
-
-    if self.onGround then self.color = {0, 255, 0}
-    else self.color = {0, 0, 255} end
 
     if self.carryObject then
         self.image = images.wizard_hold
@@ -42,11 +45,32 @@ function Fighter:update(dt)
         self.image = images.wizard_shoot
     end
 
+    if self.stunned then
+        self.stunnedTimer = self.stunnedTimer - dt
+        if self.stunnedTimer <= 0 then
+            self.stunnedTimer = self.stunnedTimerMax
+            if self.color[4] == 255 then self.color[4] = 100
+            else self.color[4] = 255 end
+        end
+        if self.onGround then
+            if math.abs(self.velocity.x) > 0 then
+                if math.abs(self.velocity.x) < 0.5 then
+                    self.velocity.x = 0
+                else
+                    self.velocity.x = self.velocity.x * 0.8
+                end
+            end
+        end
+    else
+        self.color[4] = 255
+    end
+
 end
 
 function Fighter:draw()
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(self.color)
+    print(self.color[1])
     if self.direction == 'left' then
         love.graphics.draw(self.image, self.position.x, self.position.y, 0, 1, 1, 0, 4)
     elseif self.direction == 'right' then
@@ -80,15 +104,17 @@ end
 
 function Fighter:joystickpressed(button)
 
-    if button == 1 then
-        if self.onGround then
-            self:jump()
-        end
-    elseif button == 3 then
-        if self.carryObject then
-            self:throw()
-        else
-            self:pickUp()
+    if not self.stunned then
+        if button == 1 then
+            if self.onGround then
+                self:jump()
+            end
+        elseif button == 3 then
+            if self.carryObject then
+                self:throw()
+            else
+                self:pickUp()
+            end
         end
     end
 
@@ -140,6 +166,29 @@ function Fighter:throw()
     end
     self.carryObject.carried = false
     self.carryObject = nil
+
+end
+
+function Fighter:collisions(collisions)
+
+    for i, collision in ipairs(collisions) do
+        if collision.body.parent.isMonster then
+            if not self.stunned then
+                self:getHurt()
+                local bounceVector = self:getCenter() - collision.body.parent:getCenter()
+                bounceVector = bounceVector:normalizeInplace()
+                self.velocity.x = bounceVector.x*200
+                self.velocity.y = bounceVector.y*200
+            end
+        end
+    end
+
+end
+
+function Fighter:getHurt()
+
+    self.stunned = true
+    Timer.after(self.stunnedTime, function() self.stunned = false; print('stop invincibility') end)
 
 end
 
