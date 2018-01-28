@@ -22,7 +22,7 @@ function GameState:enter(previous, level)
     table.insert(self.walls, HC.rectangle(240, 260, 90, 10))
     table.insert(self.walls, HC.rectangle(390, 260, 90, 10))
     table.insert(self.walls, HC.rectangle(470, 0, 10, 270))
-    table.insert(self.walls, HC.rectangle(280, 220, 160, 10))
+    table.insert(self.walls, HC.rectangle(280, 210, 160, 10))
     for i,wall in ipairs(self.walls) do
         wall.static = true
     end

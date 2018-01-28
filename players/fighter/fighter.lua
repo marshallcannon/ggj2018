@@ -6,10 +6,12 @@ local Fighter = Class{
 
 function Fighter:init(x, y)
 
-    Sprite.init(self, x, y, nil, 16, 16)
+    Sprite.init(self, x, y, images.wizard_shoot, 16, 16)
 
     self.controller = game.controller.controllerList[2]
     self.color = {255, 255, 255}
+
+    self.direction = 'right'
 
     self.maxSpeed = 200
     self.jumpPower = 300
@@ -34,15 +36,22 @@ function Fighter:update(dt)
     else self.color = {0, 0, 255} end
 
     if self.carryObject then
+        self.image = images.wizard_hold
         self.carryObject:moveTo(self.position.x+self.width/2-self.carryObject.width/2, self.position.y - self.carryObject.height)
+    else
+        self.image = images.wizard_shoot
     end
 
 end
 
 function Fighter:draw()
 
-    love.graphics.setColor(self.color)
-    love.graphics.rectangle('fill', self.position.x, self.position.y, 16, 16)
+    love.graphics.setColor(255, 255, 255)
+    if self.direction == 'left' then
+        love.graphics.draw(self.image, self.position.x, self.position.y, 0, 1, 1, 0, 5)
+    elseif self.direction == 'right' then
+        love.graphics.draw(self.image, self.position.x, self.position.y, 0, -1, 1, self.width, 5)
+    end
 
 end
 
@@ -107,7 +116,7 @@ function Fighter:pickUp()
         print(i)
         if not closestCorpse then
             closestCorpse = corpse
-            closestDistance = self.position:dist(corpse.position)
+            closestDistance = self:getCenter():dist(corpse:getCenter())
         else
             if self.position:dist(corpse) < closestDistance then
                 closestCorpse = corpse

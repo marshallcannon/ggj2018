@@ -175,4 +175,8 @@ function Sprite:destroy()
 
 end
 
+function Sprite:getCenter()
+    return Vector(self.position.x+self.width/2, self.position.y+self.height+2)
+end
+
 return Sprite
