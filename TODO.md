@@ -23,9 +23,9 @@
     + Monster Spawn List
     
     + Layouts
- 
- + Pollish
- 
+    
++ Polish
+
   + Damage Indication on Enemies
   
   + How to Screen
