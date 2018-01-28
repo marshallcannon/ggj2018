@@ -17,6 +17,8 @@ function Shelly:init(x, y, direction)
         multiplier = 4
     }
 
+    self.kitchenItem = game.itemList.Shelly
+
 end
 
 function Shelly:onShot(bullet)

@@ -19,6 +19,8 @@ function Hunter:init(x, y, direction)
     self.doubleJumpTimer = .2
 
     self.jumped = false
+
+    self.kitchenItem = game.itemList.Hunter
 end
 
 function Hunter:update(dt)

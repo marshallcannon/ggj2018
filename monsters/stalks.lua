@@ -12,6 +12,8 @@ function Stalks:init(x, y, direction)
     self.moveSpeed = self.moveSpeed * 1.2
 
     self.jumpPower = 200
+
+    self.kitchenItem = game.itemList.MiniStalks
 end
 
 function Stalks:update(dt)
