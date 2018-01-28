@@ -34,6 +34,13 @@ function CookingPot:draw()
     if #self.ingredients > 0 then
         love.graphics.setColor(255, 255, 255)
         love.graphics.draw(images.pot_full, self.position.x, self.position.y)
+
+        for i,ingredient in pairs(self.ingredients) do
+            print(ingredient.image)
+            love.graphics.draw(ingredient.image, self.position.x+6+((i-1)%2)*8, self.position.y+7+math.floor((i-1)/2)*8,
+                0.25, 0.25)
+        end
+
         love.graphics.setColor(0, 255, 0)
         love.graphics.rectangle('fill', self.position.x+2, self.position.y + 24,
             28*(self.cookingProgress/self.cookingTime), 4)
@@ -47,8 +54,10 @@ end
 function CookingPot:use(chef)
 
     if chef.heldItem then
-        self:addItem(chef.heldItem)
-        chef.heldItem = nil
+        if #self.ingredients < 4 then
+            self:addItem(chef.heldItem)
+            chef.heldItem = nil
+        end
     else
         if self.doneCooking then
             chef.heldItem = PreparedFood(self.ingredients)
@@ -61,6 +70,8 @@ end
 
 function CookingPot:addItem(item)
     table.insert(self.ingredients, item.__index)
+    self.cookingProgress = 0
+    self.burnProgress = 0
 end
 
 return CookingPot

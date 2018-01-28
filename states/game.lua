@@ -5,20 +5,23 @@ local Shelly = require 'monsters/shelly'
 local Stalks = require 'monsters/stalks'
 local Hunter = require 'monsters/hunter'
 local Kitchen = require 'kitchen/kitchen'
-local Items = require 'players/chef/items'
 
 local GameState = {}
 
 function GameState:enter(previous, level)
 
     --Cooking
+    game.itemList = require 'players/chef/items'
     game.items = Group(true)
     game.appliances = Group(true)
 
     game.kitchen = Kitchen()
     game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
 
-    Items.Wiggles(game.kitchen.offsetX, game.kitchen.offsetY)
+    game.itemList.Wiggles(game.kitchen.offsetX, game.kitchen.offsetY)
+    game.itemList.Wiggles(game.kitchen.offsetX+32, game.kitchen.offsetY)
+    game.itemList.Wiggles(game.kitchen.offsetX+64, game.kitchen.offsetY)
+    game.itemList.Wiggles(game.kitchen.offsetX+96, game.kitchen.offsetY)
     
     --Combat
     game.objects = Group(true)
