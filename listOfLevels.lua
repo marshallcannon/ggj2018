@@ -1,4 +1,8 @@
 local Level = require 'level'
+local Wiggles = require 'monsters/wiggles'
+local Shelly = require 'monsters/shelly'
+local Stalks = require 'monsters/stalks'
+local Hunter = require 'monsters/hunter'
 
 local Levels = {}
 
