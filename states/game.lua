@@ -1,6 +1,9 @@
 local Fighter = require 'players/fighter/fighter'
 local Chef = require 'players/chef/chef'
 local Wiggles = require 'monsters/wiggles'
+local Shelly = require 'monsters/shelly'
+local Stalks = require 'monsters/stalks'
+local Hunter = require 'monsters/hunter'
 local Kitchen = require 'kitchen/kitchen'
 
 local GameState = {}
@@ -16,6 +19,9 @@ function GameState:enter(previous, level)
     game.fighter = Fighter(300, 100)
     game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
     local newMonster = Wiggles(350, 100)
+    local newerMonster = Shelly(450, 100)
+    local newestMonster = Stalks(400, 100)
+    local oldMonster = Hunter(450, 150)
 
     self.walls = {}
     table.insert(self.walls, HC.rectangle(240, 0, 10, 270))
