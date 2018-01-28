@@ -5,6 +5,7 @@ local Shelly = require 'monsters/shelly'
 local Stalks = require 'monsters/stalks'
 local Hunter = require 'monsters/hunter'
 local Kitchen = require 'kitchen/kitchen'
+local HellPortal = require 'players/fighter/hellPortal'
 
 local GameState = {}
 
@@ -30,16 +31,19 @@ function GameState:enter(previous, level)
     game.monsters = Group()
     game.corpses = Group()
 
-    game.fighter = Fighter(300, 100)
-    local newMonster = Wiggles(350, 100)
-    local newerMonster = Shelly(450, 100)
-    local newestMonster = Stalks(400, 100)
-    local oldMonster = Hunter(450, 150)
-
     self.walls = game.currentLevel:platformFunction()
     for i,wall in ipairs(self.walls) do
         wall.static = true
     end
+
+    HellPortal(game.currentLevel.hellPortalX, game.currentLevel.hellPortalY)
+
+    game.fighter = Fighter(300, 100)
+    Wiggles(350, 100)
+    Shelly(450, 100)
+    Stalks(400, 100)
+    Hunter(450, 150)
+
 
 end
 

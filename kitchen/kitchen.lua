@@ -45,11 +45,18 @@ function Kitchen:draw()
     --     end
     -- end
 
+    love.graphics.setColor(150, 150, 150)
+    love.graphics.rectangle('fill', self.offsetX, self.offsetY, 32*6, 32)
+
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(images.table, self.offsetX+0*32, self.offsetY+2*32)
     love.graphics.draw(images.table, self.offsetX+0*32, self.offsetY+4*32)
     love.graphics.draw(images.table, self.offsetX+5*32, self.offsetY+2*32)
     love.graphics.draw(images.table, self.offsetX+5*32, self.offsetY+4*32)
+    love.graphics.draw(images.portal, self.offsetX+6*32+16, self.offsetY+16, love.timer.getTime()*2, 1, 1, 16, 16)
+    love.graphics.draw(images.plate, self.offsetX+2*32, self.offsetY+6*32)
+    love.graphics.draw(images.plate, self.offsetX+4*32, self.offsetY+6*32)
+    love.graphics.draw(images.plate, self.offsetX+6*32, self.offsetY+6*32)
 
 end
 
@@ -61,6 +68,25 @@ function Kitchen:getEmptyOrderSlot()
     end
 
     return openSlots[love.math.random(#openSlots)]
+
+end
+
+function Kitchen:getEmptySpace()
+
+    local spaceFree
+    for x=0, 5 do
+        spaceFree = true
+        for i, item in ipairs(game.items:getAll()) do
+            local gridX, gridY = item:getGridPosition()
+            gridX = gridX - 1
+            if gridX == x then
+                spaceFree = false
+            end
+        end
+        if spaceFree == true then
+            return self.offsetX+x*32, self.offsetY
+        end
+    end
 
 end
 

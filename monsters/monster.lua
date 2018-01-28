@@ -14,6 +14,7 @@ function Monster:init(x, y, image, direction)
     self.direction = direction or 'right'
     self.isMonster = true
     self.isRed = false
+    self.kitchenItem = game.itemList.Wiggles
 
     self.hp = 3
     self.moveSpeed = 30

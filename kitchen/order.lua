@@ -58,15 +58,11 @@ function Order:draw()
 end
 
 function Order:checkIfIngredientsMatch(ingredients)
-    print('Checking Ingredients')
 
     local correctIngredients = 0
     for i, ingredient in ipairs(self.ingredients) do
-        print('check ingredient '..i)
         for j, foodIngredient in ipairs(ingredients) do
-            print('checking other...')
             if ingredient == foodIngredient then
-                print('correct ingredient')
                 correctIngredients = correctIngredients + 1
                 table.remove(ingredients, j)
                 break

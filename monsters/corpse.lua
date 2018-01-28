@@ -7,6 +7,8 @@ function Corpse:init(monster)
     Sprite.init(self, monster.position.x, monster.position.y, monster.imageDead)
     self.velocity = monster.velocity
     self.carried = false
+    self.isCorpse = true
+    self.kitchenItem = monster.kitchenItem
 
     game.corpses:add(self)
 

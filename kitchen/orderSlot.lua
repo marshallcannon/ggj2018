@@ -23,6 +23,9 @@ function OrderSlot:draw()
     love.graphics.setColor(188, 138, 84)
     love.graphics.rectangle('fill', self.position.x-32, self.position.y, 64, 32)
 
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(images.plate, self.position.x, self.position.y)
+
     if self.order then
         self.order:draw()
     end

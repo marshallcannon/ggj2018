@@ -25,6 +25,8 @@ function LoadState:enter()
     images.arrow = love.graphics.newImage('assets/images/arrow.png')
     images.background1 = love.graphics.newImage('assets/images/background1.png')
     images.background2 = love.graphics.newImage('assets/images/background2.png')
+    images.portal = love.graphics.newImage('assets/images/portal.png')
+    images.plate = love.graphics.newImage('assets/images/plate.png')
   
     images.table = love.graphics.newImage('assets/images/table.png')
     images.pot_empty = love.graphics.newImage('assets/images/pot_empty.png')

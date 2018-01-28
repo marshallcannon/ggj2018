@@ -70,7 +70,6 @@ end
 function Fighter:draw()
 
     love.graphics.setColor(self.color)
-    print(self.color[1])
     if self.direction == 'left' then
         love.graphics.draw(self.image, self.position.x, self.position.y, 0, 1, 1, 0, 4)
     elseif self.direction == 'right' then
@@ -188,7 +187,7 @@ end
 function Fighter:getHurt()
 
     self.stunned = true
-    Timer.after(self.stunnedTime, function() self.stunned = false; print('stop invincibility') end)
+    Timer.after(self.stunnedTime, function() self.stunned = false end)
 
 end
 

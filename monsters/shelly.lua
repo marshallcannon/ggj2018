@@ -20,7 +20,6 @@ function Shelly:init(x, y, direction)
 end
 
 function Shelly:onShot(bullet)
-    print("shelly hit")
     if self.direction ~= bulletDir(bullet) then
         Monster.onShot(self)
         --Monster.hitSide(self)
