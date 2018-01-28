@@ -69,6 +69,7 @@ function Level:draw()
 
 end
 
+--Add a food order to the level
 function Level:addOrder(ingredients, time)
 
     time = time or 20
@@ -76,6 +77,7 @@ function Level:addOrder(ingredients, time)
 
 end
 
+--Set the timestamps for orders
 function Level:setOrderTimings(...)
 
     for i, timing in ipairs(arg) do
@@ -84,6 +86,7 @@ function Level:setOrderTimings(...)
 
 end
 
+--Set the function for setting platforms
 function Level:setPlatformFunction(platformFunction)
 
     self.platformFunction = platformFunction
