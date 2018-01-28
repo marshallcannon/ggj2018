@@ -16,7 +16,6 @@ function Corpse:update(dt)
 
     if not self.carried then
     
-        print('normal update')
         Sprite.update(self, dt)
 
         if self.onGround then
