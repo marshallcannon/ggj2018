@@ -36,17 +36,7 @@ function GameState:enter(previous, level)
     local newestMonster = Stalks(400, 100)
     local oldMonster = Hunter(450, 150)
 
-    self.walls = {}
-    table.insert(self.walls, HC.rectangle(240, 0, 10, 270))
-    table.insert(self.walls, HC.rectangle(240, 260, 90, 10))
-    table.insert(self.walls, HC.rectangle(390, 260, 90, 10))
-    table.insert(self.walls, HC.rectangle(470, 0, 10, 270))
-    table.insert(self.walls, HC.rectangle(280, 210, 160, 10))
-    table.insert(self.walls, HC.rectangle(240, 160, 40, 10))
-    table.insert(self.walls, HC.rectangle(440, 160, 40, 10))
-    table.insert(self.walls, HC.rectangle(280, 110, 160, 10))
-    table.insert(self.walls, HC.rectangle(240, 60, 40, 10))
-    table.insert(self.walls, HC.rectangle(440, 60, 40, 10))
+    self.walls = game.currentLevel:platformFunction()
     for i,wall in ipairs(self.walls) do
         wall.static = true
     end

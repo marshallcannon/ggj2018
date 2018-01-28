@@ -13,6 +13,21 @@ function Level:init()
     self.timeText = love.graphics.newText(fonts.mainSmall, tostring(self.timeLimit))
     self.currentOrder = 1
     self.backOrders = {}
+    
+    self.platformFunction = function()
+        local platforms = {}
+        table.insert(platforms, HC.rectangle(240, 0, 10, 270))
+        table.insert(platforms, HC.rectangle(240, 260, 90, 10))
+        table.insert(platforms, HC.rectangle(390, 260, 90, 10))
+        table.insert(platforms, HC.rectangle(470, 0, 10, 270))
+        table.insert(platforms, HC.rectangle(280, 210, 160, 10))
+        table.insert(platforms, HC.rectangle(240, 160, 40, 10))
+        table.insert(platforms, HC.rectangle(440, 160, 40, 10))
+        table.insert(platforms, HC.rectangle(280, 110, 160, 10))
+        table.insert(platforms, HC.rectangle(240, 60, 40, 10))
+        table.insert(platforms, HC.rectangle(440, 60, 40, 10))
+        return platforms
+    end
 
     self.spawnList = {}
 
@@ -66,6 +81,12 @@ function Level:setOrderTimings(...)
     for i, timing in ipairs(arg) do
         table.insert(self.orderTimings, timing)
     end
+
+end
+
+function Level:setPlatformFunction(platformFunction)
+
+    self.platformFunction = platformFunction
 
 end
 
