@@ -21,19 +21,31 @@ function LoadState:enter()
     images.teeth_dead = love.graphics.newImage('assets/images/teeth_dead.png')
     images.eyeGuy = love.graphics.newImage('assets/images/eyeGuy.png')
     images.eyeGuy_dead = love.graphics.newImage('assets/images/eyeGuy_dead.png')
+    images.preparedFood = love.graphics.newImage('assets/images/preparedFood.png')
+    images.arrow = love.graphics.newImage('assets/images/arrow.png')
+    images.background1 = love.graphics.newImage('assets/images/background1.png')
+    images.background2 = love.graphics.newImage('assets/images/background2.png')
   
     images.table = love.graphics.newImage('assets/images/table.png')
     images.pot_empty = love.graphics.newImage('assets/images/pot_empty.png')
     images.pot_full = love.graphics.newImage('assets/images/pot_full.png')
     
     images.chef = {}
-    images.chef.sheet = love.graphics.newImage('assets/images/chef.png')
+    images.chef.sheet = love.graphics.newImage('assets/images/chef2.png')
     images.chef.down = love.graphics.newQuad(0, 0, 32, 32, images.chef.sheet:getDimensions())
     images.chef.right = love.graphics.newQuad(32, 0, 32, 32, images.chef.sheet:getDimensions())
     images.chef.up = love.graphics.newQuad(64, 0, 32, 32, images.chef.sheet:getDimensions())
     images.chef.left = love.graphics.newQuad(96, 0, 32, 32, images.chef.sheet:getDimensions())
 
-    State.switch(game.states.game)
+    fonts = {}
+    fonts.mainHuge = love.graphics.newFont('assets/fonts/slkscre.ttf', 128)
+    fonts.mainLarge = love.graphics.newFont('assets/fonts/slkscre.ttf', 64)
+    fonts.mainSmall = love.graphics.newFont('assets/fonts/slkscre.ttf', 32)
+
+    game.itemList = require 'players/chef/items'
+    game.levels = require 'listOfLevels'
+
+    State.switch(game.states.game, game.levels[1])
 
 end
 

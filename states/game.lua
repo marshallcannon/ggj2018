@@ -10,8 +10,10 @@ local GameState = {}
 
 function GameState:enter(previous, level)
 
+    game.currentLevel = level
+    game.score = 0
+
     --Cooking
-    game.itemList = require 'players/chef/items'
     game.items = Group(true)
     game.appliances = Group(true)
 
@@ -54,6 +56,7 @@ end
 function GameState:update(dt)
 
     Timer.update(dt)
+    game.currentLevel:update(dt)
 
     --Cooking
     game.chef:update(dt)
@@ -71,8 +74,8 @@ function GameState:draw()
 
     --Cooking Screen
     love.graphics.scale(4, 4)
-    love.graphics.setColor(200, 200, 200)
-    love.graphics.rectangle('fill', 0, 0, 240, 270)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(images.background1, 0, 0)
     game.kitchen:draw()
     game.appliances:draw()
     game.items:draw()
@@ -82,11 +85,9 @@ function GameState:draw()
     --Combat Screen
     love.graphics.origin()
     love.graphics.scale(4, 4)
-
-    love.graphics.setColor(100, 100, 100)
-    love.graphics.rectangle('fill', 240, 0, 240, 270)
-
     love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(images.background2, 240, 0)
+
     for i,wall in ipairs(self.walls) do
         wall:draw('line')
     end
@@ -95,6 +96,9 @@ function GameState:draw()
     game.monsters:draw()
 
     game.fighter:draw()
+
+    --Draw timer
+    game.currentLevel:draw()
 
 end
 
@@ -112,6 +116,10 @@ function GameState:joystickpressed(joystick, button)
         game.fighter:joystickpressed(button)
     end
 
+end
+
+function GameState:levelOver()
+    print('It\'s over!')
 end
 
 return GameState

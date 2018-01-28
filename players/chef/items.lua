@@ -13,7 +13,7 @@ end
 
 Items.Wiggles = Class{
     __includes = Item,
-    image = images.wiggles
+    image = images.wiggles_dead
 }
 function Items.Wiggles:init(x, y)
     Item.init(self, 'Wiggles', x, y)

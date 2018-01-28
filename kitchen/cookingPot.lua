@@ -36,7 +36,6 @@ function CookingPot:draw()
         love.graphics.draw(images.pot_full, self.position.x, self.position.y)
 
         for i,ingredient in pairs(self.ingredients) do
-            print(ingredient.image)
             love.graphics.draw(ingredient.image, self.position.x+6+((i-1)%2)*8, self.position.y+7+math.floor((i-1)/2)*8,
                 0.25, 0.25)
         end
@@ -60,7 +59,8 @@ function CookingPot:use(chef)
         end
     else
         if self.doneCooking then
-            chef.heldItem = PreparedFood(self.ingredients)
+            chef.heldItem = PreparedFood(0, 0, self.ingredients)
+            chef.heldItem.held = true
             self.ingredients = {}
             self.doneCooking = false
         end

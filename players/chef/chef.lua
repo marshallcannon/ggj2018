@@ -30,26 +30,26 @@ function Chef:draw()
     if self.direction == 'up' then
         love.graphics.setColor(255, 255, 255)
         if self.heldItem then
-            love.graphics.draw(self.heldItem.image, self.position.x, self.position.y, 0, 0.5, 0.5)
+            love.graphics.draw(self.heldItem.image, self.position.x+16, self.position.y+14, 0, 0.5, 0.5)
         end
         love.graphics.draw(images.chef.sheet, images.chef.up, self.position.x, self.position.y)
     elseif self.direction == 'right' then
         love.graphics.setColor(255, 255, 255)
         love.graphics.draw(images.chef.sheet, images.chef.right, self.position.x, self.position.y)
         if self.heldItem then
-            love.graphics.draw(self.heldItem.image, self.position.x, self.position.y, 0, 0.5, 0.5)
+            love.graphics.draw(self.heldItem.image, self.position.x+20, self.position.y+16, 0, 0.5, 0.5)
         end
     elseif self.direction == 'down' then
         love.graphics.setColor(255, 255, 255)
         love.graphics.draw(images.chef.sheet, images.chef.down, self.position.x, self.position.y)
         if self.heldItem then
-            love.graphics.draw(self.heldItem.image, self.position.x, self.position.y, 0, 0.5, 0.5)
+            love.graphics.draw(self.heldItem.image, self.position.x+16, self.position.y+20, 0, 0.5, 0.5)
         end
     elseif self.direction == 'left' then
         love.graphics.setColor(255, 255, 255)
         love.graphics.draw(images.chef.sheet, images.chef.left, self.position.x, self.position.y)
         if self.heldItem then
-            love.graphics.draw(self.heldItem.image, self.position.x, self.position.y, 0, 0.5, 0.5)
+            love.graphics.draw(self.heldItem.image, self.position.x+4, self.position.y+16, 0, 0.5, 0.5)
         end
     end
 
