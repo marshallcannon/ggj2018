@@ -12,6 +12,7 @@ function Monster:init(x, y, image, direction)
     Sprite.init(self, x, y, image)
 
     self.direction = direction or 'right'
+    self.isMonster = true
 
     self.hp = 3
     self.moveSpeed = 30
