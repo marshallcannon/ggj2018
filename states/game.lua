@@ -37,6 +37,8 @@ end
 
 function GameState:update(dt)
 
+    Timer.update(dt)
+
     --Cooking
     game.chef:update(dt)
 

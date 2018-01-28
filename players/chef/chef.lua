@@ -12,11 +12,7 @@ function Chef:init(x, y)
     self.midpoint = nil
     self.direction = 'down'
 
-    self.startSpeed = 150
-    self.speed = self.startSpeed
-    self.tween = 1.3
-
-    self.stored = nil
+    self.tweenSpeed = 0.2
 
     self.controller = game.controller.controllerList[1]
 
@@ -56,7 +52,7 @@ function Chef:controllerUpdate()
         leftStickDir = self.storedDir
     end
 
-    if not self.moving then
+    if leftStickDir and not self.moving then
         if leftStickDir == 'right' then
             self:setGoal(self.position.x+32, self.position.y)
         elseif leftStickDir == 'left'  then
@@ -67,7 +63,7 @@ function Chef:controllerUpdate()
             self:setGoal(self.position.x, self.position.y-32)
         end
         self.storedDir = nil
-        self.direction = leftstickDir
+        self.direction = leftStickDir
     else
         self.storedDir = getStickDirection(self.controller:getAxis(1), self.controller:getAxis(2))
         if self.storedDir == self.direction then
@@ -103,12 +99,11 @@ function Chef:setGoal(x, y)
     local gridX = math.floor(x/game.kitchen.tileSize)+1
     local gridY = math.floor(y/game.kitchen.tileSize)+1
 
-    print(gridX, gridY, game.kitchen.width, game.kitchen.height)
     if gridX > 0 and gridY > 0 and gridX <= game.kitchen.width and gridY <= game.kitchen.height then
         self.moving = true
         self.goal = Vector(x, y)
 
-        Timer.tween(0.25,self,{position = {y = y, x = x}},'in-out-quart',
+        Timer.tween(self.tweenSpeed,self,{position = {y = y, x = x}},'in-out-quart',
             function() self.moving=false end)
     end
 

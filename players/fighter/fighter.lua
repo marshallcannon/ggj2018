@@ -25,7 +25,7 @@ end
 function Fighter:update(dt)
 
     if self.bulletTimer > 0 then
-        self.bulletTimer = self.bulletTimer -dt
+        self.bulletTimer = self.bulletTimer - dt
     end
 
     self:controllerUpdate(dt)

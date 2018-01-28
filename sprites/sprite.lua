@@ -153,6 +153,8 @@ end
 
 function Sprite:hitSide()
 
+    self.velocity.x = -self.velocity.x * 0.1
+
 end
 
 function Sprite:getOverlap(body1, body2)
