@@ -28,7 +28,9 @@ function LoadState:enter()
   
     images.table = love.graphics.newImage('assets/images/table.png')
     images.pot_empty = love.graphics.newImage('assets/images/pot_empty.png')
-    images.pot_full = love.graphics.newImage('assets/images/pot_full.png')
+    images.pot_cooking = love.graphics.newImage('assets/images/pot_cooking.png')
+    images.pot_done = love.graphics.newImage('assets/images/pot_done.png')
+    images.pot_burnt = love.graphics.newImage('assets/images/pot_burnt.png')
     
     images.chef = {}
     images.chef.sheet = love.graphics.newImage('assets/images/chef2.png')
