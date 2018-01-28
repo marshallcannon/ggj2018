@@ -12,8 +12,8 @@ end
 
 function Trash:draw()
 
-    love.graphics.setColor(100, 100, 100)
-    love.graphics.circle('fill', self.position.x+16, self.position.y+16, 16)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(images.trashcan, self.position.x, self.position.y)
 
 end
 
