@@ -32,15 +32,15 @@ Items.Shelly = Class{
     image = images.shelly_dead
 }
 function Items.Shelly:init(x, y)
-    Item.init(self, 'Wiggles', x, y)
+    Item.init(self, 'Shelly', x, y)
 end
 
-Items.MiniStalks = Class{
+Items.MiniStalk = Class{
     __includes = Item,
-    image = images.miniStalks_dead
+    image = images.miniStalks_dead_resize
 }
-function Items.MiniStalks:init(x, y)
-    Item.init(self, 'Wiggles', x, y)
+function Items.MiniStalk:init(x, y)
+    Item.init(self, 'MiniStalk', x, y)
 end
 
 return Items

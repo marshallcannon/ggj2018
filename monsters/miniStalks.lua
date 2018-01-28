@@ -14,7 +14,7 @@ function MiniStalks:init(x, y, direction)
 
     self.jumpPower = 225
 
-    self.kitchenItem = game.itemList.MiniStalks
+    self.kitchenItem = game.itemList.MiniStalk
 end
 
 function MiniStalks:update(dt)
