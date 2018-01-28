@@ -34,7 +34,7 @@ function Bullet:collisions(collisions)
 
         if collision.body.parent.onShot then
             self:destroy()
-            collision.body.parent:onShot()
+            collision.body.parent:onShot(self)
         end
 
     end

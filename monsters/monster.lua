@@ -53,7 +53,7 @@ function Monster:distanceToFighter()
 
 end
 
-function Monster:onShot()
+function Monster:onShot(bullet)
 
     self.hp = self.hp - 1
     if self.hp <= 0 then self:die() end
