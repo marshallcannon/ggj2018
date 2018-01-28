@@ -4,7 +4,7 @@ local Level = Class{
 
 }
 
-function Level:init()
+function Level:init(platforms)
 
     self.orders = {}
     self.orderTimings = {3, 4, 5, 6, 7, 8}
@@ -13,20 +13,32 @@ function Level:init()
     self.timeText = love.graphics.newText(fonts.mainSmall, tostring(self.timeLimit))
     self.currentOrder = 1
     self.backOrders = {}
-    
+
+    self.scale = 10
+
+    self.platformList = platforms or {
+        --[[Walls]]
+        {0,0,1,27},
+        {23,0,1,27},
+        --[[Bottom Floor]]
+        {0,26,9,1},
+        {14,26,9,1},
+        --[[Long Center Platforms]]
+        {4,21,16,1},
+        {4,11,16,1},
+        --[[Small Side Platforms]]
+        {0,16,4,1},
+        {20,16,4,1},
+        {0,6,4,1},
+        {20,6,4,1}
+    }
+
     self.platformFunction = function()
-        local platforms = {}
-        table.insert(platforms, HC.rectangle(240, 0, 10, 270))
-        table.insert(platforms, HC.rectangle(240, 260, 90, 10))
-        table.insert(platforms, HC.rectangle(390, 260, 90, 10))
-        table.insert(platforms, HC.rectangle(470, 0, 10, 270))
-        table.insert(platforms, HC.rectangle(280, 210, 160, 10))
-        table.insert(platforms, HC.rectangle(240, 160, 40, 10))
-        table.insert(platforms, HC.rectangle(440, 160, 40, 10))
-        table.insert(platforms, HC.rectangle(280, 110, 160, 10))
-        table.insert(platforms, HC.rectangle(240, 60, 40, 10))
-        table.insert(platforms, HC.rectangle(440, 60, 40, 10))
-        return platforms
+        local output = {}
+        for i,object in ipairs(self.platformList) do
+            table.insert(output, HC.rectangle(object[1] * self.scale + 240, object[2]  * self.scale, object[3] * self.scale, object[4] * self.scale))
+        end
+        return output
     end
 
     self.spawnList = {}
