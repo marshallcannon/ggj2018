@@ -12,6 +12,9 @@ function Monster:init(x, y, image, direction)
     Sprite.init(self, x, y, image)
 
     self.direction = direction or 'right'
+    self.isMonster = true
+    self.isRed = false
+    self.kitchenItem = game.itemList.Wiggles
 
     self.hp = 3
     self.moveSpeed = 30
@@ -34,6 +37,8 @@ end
 
 function Monster:draw()
 
+    if self.isRed then love.graphics.setShader(game.redShader) end
+
     if self.image then
         love.graphics.setColor(255, 255, 255)
         if self.direction == 'right' then
@@ -45,6 +50,8 @@ function Monster:draw()
         Sprite.draw(self)
     end
 
+    love.graphics.setShader()
+
 end
 
 function Monster:distanceToFighter()
@@ -55,6 +62,8 @@ end
 
 function Monster:onShot(bullet)
 
+    self.isRed = true
+    Timer.after(0.1, function() if self then self.isRed = false end end)
     self.hp = self.hp - 1
     if self.hp <= 0 then self:die() end
 

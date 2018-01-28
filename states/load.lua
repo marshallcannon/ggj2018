@@ -13,6 +13,7 @@ function LoadState:enter()
     images.stalks = love.graphics.newImage('assets/images/stalks.png')
     images.miniStalks = love.graphics.newImage('assets/images/miniStalks.png')
     images.miniStalks_dead = love.graphics.newImage('assets/images/miniStalks_dead.png')
+    images.miniStalks_dead_resize = love.graphics.newImage('assets/images/miniStalks_dead_resize.png')
     images.wiggles = love.graphics.newImage('assets/images/wiggles.png')
     images.wiggles_dead = love.graphics.newImage('assets/images/wiggles_dead.png')
     images.shelly = love.graphics.newImage('assets/images/shelly.png')
@@ -25,6 +26,8 @@ function LoadState:enter()
     images.arrow = love.graphics.newImage('assets/images/arrow.png')
     images.background1 = love.graphics.newImage('assets/images/background1.png')
     images.background2 = love.graphics.newImage('assets/images/background2.png')
+    images.portal = love.graphics.newImage('assets/images/portal.png')
+    images.plate = love.graphics.newImage('assets/images/plate.png')
   
     images.table = love.graphics.newImage('assets/images/table.png')
     images.pot_empty = love.graphics.newImage('assets/images/pot_empty.png')
@@ -46,6 +49,18 @@ function LoadState:enter()
 
     game.itemList = require 'players/chef/items'
     game.levels = require 'listOfLevels'
+
+    game.redShader = love.graphics.newShader( [[
+
+        vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) {
+            vec4 pixel = Texel(texture, texture_coords);
+            pixel.r = 1;
+            pixel.g = 0;
+            pixel.b = 0;
+            return pixel;
+        }
+
+    ]])
 
     State.switch(game.states.game, game.levels[1])
 

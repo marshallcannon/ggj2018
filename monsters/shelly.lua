@@ -17,10 +17,11 @@ function Shelly:init(x, y, direction)
         multiplier = 4
     }
 
+    self.kitchenItem = game.itemList.Shelly
+
 end
 
 function Shelly:onShot(bullet)
-    print("shelly hit")
     if self.direction ~= bulletDir(bullet) then
         Monster.onShot(self)
         --Monster.hitSide(self)

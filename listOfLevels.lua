@@ -18,8 +18,9 @@ Levels[1] = Level({
     {0,6,4,1},
     {20,6,4,1}
 })
-Levels[1]:addOrder({game.itemList.Wiggles, game.itemList.Wiggles, game.itemList.Wiggles, game.itemList.Wiggles})
-Levels[1]:addOrder({game.itemList.Wiggles})
+Levels[1] = Level()
+Levels[1]:addOrder({game.itemList.MiniStalk, game.itemList.Wiggles}, 3)
+
 
 Levels[2] = Level({
     --[[Walls]]

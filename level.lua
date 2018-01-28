@@ -13,7 +13,6 @@ function Level:init(platforms)
     self.timeText = love.graphics.newText(fonts.mainSmall, tostring(self.timeLimit))
     self.currentOrder = 1
     self.backOrders = {}
-
     self.scale = 10
 
     self.platformList = platforms or {
@@ -32,6 +31,9 @@ function Level:init(platforms)
         {0,6,4,1},
         {20,6,4,1}
     }
+
+    self.hellPortalX = 350
+    self.hellPortalY = 50
 
     self.platformFunction = function()
         local output = {}
