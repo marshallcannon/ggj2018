@@ -119,7 +119,7 @@ function Fighter:pickUp()
         else
             if self.position:dist(corpse:getCenter()) < closestDistance then
                 closestCorpse = corpse
-                closestDistance = self.position:dist(corpse)
+                closestDistance = self.position:dist(corpse:getCenter())
             end
         end
     end
