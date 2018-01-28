@@ -11,9 +11,12 @@ function Items:getTotalNumberOfItems()
     return count - 1
 end
 
-Items.Wiggles = Class{__includes = Item}
+Items.Wiggles = Class{
+    __includes = Item,
+    image = images.wiggles
+}
 function Items.Wiggles:init(x, y)
-    Item.init(self, 'Wiggles', x, y, images.wiggles)
+    Item.init(self, 'Wiggles', x, y)
 end
 
 return Items

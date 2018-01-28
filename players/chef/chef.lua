@@ -107,7 +107,6 @@ function Chef:joystickpressed(button)
         else
 
             --Try to pick up item
-            print(lookingX, lookingY)
             local item = self:findItem(lookingX, lookingY)
             if item then
                 self:pickUp(item)
