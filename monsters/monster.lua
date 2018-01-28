@@ -1,8 +1,13 @@
+local Corpse = require 'monsters/corpse'
+
 local Monster = Class{
     __includes = Sprite
 }
 
 function Monster:init(x, y, image, direction)
+
+    self.image = images.wiggles
+    self.imageDead = images.wiggles_dead
 
     Sprite.init(self, x, y, image)
 
@@ -24,6 +29,21 @@ function Monster:update(dt)
         self.velocity.x = -self.moveSpeed
     end
     Sprite.update(self, dt)
+
+end
+
+function Monster:draw()
+
+    if self.image then
+        love.graphics.setColor(255, 255, 255)
+        if self.direction == 'right' then
+            love.graphics.draw(self.image, self.position.x, self.position.y)
+        elseif self.direction == 'left' then
+            love.graphics.draw(self.image, self.position.x, self.position.y, 0, -1, 1, self.width)
+        end
+    else
+        Sprite.draw(self)
+    end
 
 end
 
@@ -52,6 +72,7 @@ end
 
 function Monster:die()
 
+    Corpse(self)
     self:destroy()
 
 end

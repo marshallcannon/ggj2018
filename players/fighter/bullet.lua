@@ -12,8 +12,6 @@ function Bullet:init(x, y, velocityX, velocityY, width, height)
     self.velocity.y = velocityY or 0
     self.useGravity = false
 
-    game.objects:add(self)
-
 end
 
 function Bullet:update(dt)
@@ -27,7 +25,6 @@ function Bullet:draw()
     love.graphics.setColor(255, 0, 0)
     love.graphics.rectangle('fill', self.position.x, self.position.y, self.width, self.height)
     love.graphics.setColor(255, 255, 255)
-    self.body:draw()
 
 end
 

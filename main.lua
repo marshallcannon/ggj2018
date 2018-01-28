@@ -3,6 +3,7 @@ game = {}
 State = require 'libraries/hump/gameState'
 Class = require 'libraries/hump/class'
 Vector = require 'libraries/hump/vector'
+Timer = require 'libraries/hump/timer'
 HC = require 'libraries/hc'
 Sprite = require 'sprites/sprite'
 Group = require 'util/group'
