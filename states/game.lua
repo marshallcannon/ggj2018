@@ -20,11 +20,6 @@ function GameState:enter(previous, level)
 
     game.kitchen = Kitchen()
     game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
-
-    game.itemList.Wiggles(game.kitchen.offsetX, game.kitchen.offsetY)
-    game.itemList.Wiggles(game.kitchen.offsetX+32, game.kitchen.offsetY)
-    game.itemList.Wiggles(game.kitchen.offsetX+64, game.kitchen.offsetY)
-    game.itemList.Wiggles(game.kitchen.offsetX+96, game.kitchen.offsetY)
     
     --Combat
     game.objects = Group(true)
@@ -39,10 +34,6 @@ function GameState:enter(previous, level)
     HellPortal(game.currentLevel.hellPortalX, game.currentLevel.hellPortalY)
 
     game.fighter = Fighter(300, 100)
-    Wiggles(350, 100)
-    Shelly(450, 100)
-    Stalks(400, 100)
-    Hunter(450, 150)
 
 
 end

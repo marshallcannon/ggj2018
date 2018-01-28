@@ -29,6 +29,9 @@ function LoadState:enter()
     images.portal = love.graphics.newImage('assets/images/portal.png')
     images.plate = love.graphics.newImage('assets/images/plate.png')
     images.trashcan = love.graphics.newImage('assets/images/trash.png')
+
+    images.menuBackground_tile = love.graphics.newImage('assets/images/title_tile.png')
+    images.menuBackground_noTile = love.graphics.newImage('assets/images/title_noTile.png')
   
     images.table = love.graphics.newImage('assets/images/table.png')
     images.pot_empty = love.graphics.newImage('assets/images/pot_empty.png')
@@ -63,7 +66,7 @@ function LoadState:enter()
 
     ]])
 
-    State.switch(game.states.game, game.levels[1])
+    State.switch(game.states.menu)
 
 end
 

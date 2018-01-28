@@ -1,4 +1,8 @@
 local Order = require 'kitchen/order'
+local Wiggles = require 'monsters/wiggles'
+local Shelly = require 'monsters/shelly'
+local Stalks = require 'monsters/stalks'
+local Hunter = require 'monsters/hunter'
 
 local Level = Class{
 
@@ -15,6 +19,9 @@ function Level:init()
     self.backOrders = {}
     self.hellPortalX = 350
     self.hellPortalY = 50
+    self.spawnList = {Wiggles}
+    self.spawnRate = 10
+    self.spawnTimer = 2
     
     self.platformFunction = function()
         local platforms = {}
@@ -31,14 +38,22 @@ function Level:init()
         return platforms
     end
 
-    self.spawnList = {}
-
 end
 
 function Level:update(dt)
 
     self.levelTime = self.levelTime + dt
     self.timeText:set(tostring(math.floor(self.timeLimit-self.levelTime)))
+
+    --Spawn Monsters
+    self.spawnTimer = self.spawnTimer - dt
+    if self.spawnTimer <= 0 then
+        print(#self.spawnList)
+        local monster = self.spawnList[love.math.random(#self.spawnList)]
+        print(monster)
+        monster(love.math.random(260, 460), -20)
+        self.spawnTimer = self.spawnRate
+    end
 
     --If a new order time is up
     if self.orderTimings[self.currentOrder] and self.levelTime >= self.orderTimings[self.currentOrder] then
