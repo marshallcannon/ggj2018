@@ -9,35 +9,24 @@ function Chef:init(x, y)
     self.height = 32
     self.moving = false
     self.goal = nil
+    self.midpoint = nil
     self.direction = 'down'
 
-    self.speed = 150
+    self.startSpeed = 150
+    self.speed = self.startSpeed
+    self.tween = 1.3
+
+    self.stored = nil
 
     self.controller = game.controller.controllerList[1]
 
 end
 
+
+
 function Chef:update(dt)
 
     self:controllerUpdate()
-
-    if self.goal and self.moving then
-        if self.position:dist(self.goal) <= self.speed*dt then
-            self.position = self.goal
-            self.moving = false
-            self.goal = nil
-        else
-            if self.position.x < self.goal.x then
-                self.position.x = self.position.x + self.speed*dt
-            elseif self.position.x > self.goal.x then
-                self.position.x = self.position.x - self.speed*dt
-            elseif self.position.y < self.goal.y then
-                self.position.y = self.position.y + self.speed*dt
-            elseif self.position.y > self.goal.y then
-                self.position.y = self.position.y - self.speed*dt
-            end
-        end
-    end
 
 end
 
@@ -61,29 +50,52 @@ end
 
 function Chef:controllerUpdate()
 
-    local leftStickX = self.controller:getAxis(1)
-    local leftStickY = self.controller:getAxis(2)
+    local leftStickDir = getStickDirection(self.controller:getAxis(1), self.controller:getAxis(2))
+    
+    if self.storedDir then
+        leftStickDir = self.storedDir
+    end
 
     if not self.moving then
-        if math.abs(leftStickX) > math.abs(leftStickY) then
-            if leftStickX > game.controller.deadZone then
-                self:setGoal(self.position.x+32, self.position.y)
-                self.direction = 'right'
-            elseif leftStickX < -game.controller.deadZone then
-                self:setGoal(self.position.x-32, self.position.y)
-                self.direction = 'left'
-            end
-        else
-            if leftStickY > game.controller.deadZone then
-                self:setGoal(self.position.x, self.position.y+32)
-                self.direction = 'down'
-            elseif leftStickY < -game.controller.deadZone then
-                self:setGoal(self.position.x, self.position.y-32)
-                self.direction = 'up'
-            end
+        if leftStickDir == 'right' then
+            self:setGoal(self.position.x+32, self.position.y)
+        elseif leftStickDir == 'left'  then
+            self:setGoal(self.position.x-32, self.position.y)
+        elseif leftStickDir == 'down' then
+            self:setGoal(self.position.x, self.position.y+32)
+        elseif leftStickDir == 'up' then
+            self:setGoal(self.position.x, self.position.y-32)
+        end
+        self.storedDir = nil
+        self.direction = leftstickDir
+    else
+        self.storedDir = getStickDirection(self.controller:getAxis(1), self.controller:getAxis(2))
+        if self.storedDir == self.direction then
+            self.storedDir =  nil
         end
     end
 
+end
+
+function getStickDirection(leftStickX, leftStickY)
+
+    local output = nil
+
+    if math.abs(leftStickX) > math.abs(leftStickY) then
+        if leftStickX > game.controller.deadZone then
+            output = 'right'
+        elseif leftStickX < -game.controller.deadZone then
+            output = 'left'
+        end
+    else
+        if leftStickY > game.controller.deadZone then
+            output = 'down'
+        elseif leftStickY < -game.controller.deadZone then
+            output= 'up'
+        end
+    end
+
+    return output
 end
 
 function Chef:setGoal(x, y)
@@ -95,6 +107,9 @@ function Chef:setGoal(x, y)
     if gridX > 0 and gridY > 0 and gridX <= game.kitchen.width and gridY <= game.kitchen.height then
         self.moving = true
         self.goal = Vector(x, y)
+
+        Timer.tween(0.25,self,{position = {y = y, x = x}},'in-out-quart',
+            function() self.moving=false end)
     end
 
 end
