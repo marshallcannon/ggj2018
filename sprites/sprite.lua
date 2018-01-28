@@ -39,7 +39,7 @@ function Sprite:update(dt)
         self:staticCollisions(staticCollisions)
     end
 
-    if self.position.y >= 270 then
+    if self.position.y >= game.scaledHeight + 20 then
         self.position.y = -self.height
     end
 

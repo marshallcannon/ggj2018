@@ -37,7 +37,7 @@ function Fighter:update(dt)
 
     if self.carryObject then
         self.image = images.wizard_hold
-        self.carryObject:moveTo(self.position.x+self.width/2-self.carryObject.width/2, self.position.y - self.carryObject.height)
+        self.carryObject:moveTo(self.position.x+self.width/2-self.carryObject.width/2, self.position.y - 6 - self.carryObject.height)
     else
         self.image = images.wizard_shoot
     end
