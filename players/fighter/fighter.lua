@@ -113,12 +113,11 @@ function Fighter:pickUp()
     local closestCorpse = nil
     local closestDistance = nil
     for i, corpse in ipairs(game.corpses:getAll()) do
-        print(i)
         if not closestCorpse then
             closestCorpse = corpse
             closestDistance = self:getCenter():dist(corpse:getCenter())
         else
-            if self.position:dist(corpse) < closestDistance then
+            if self.position:dist(corpse:getCenter()) < closestDistance then
                 closestCorpse = corpse
                 closestDistance = self.position:dist(corpse)
             end

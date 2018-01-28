@@ -21,6 +21,17 @@ function LoadState:enter()
     images.teeth_dead = love.graphics.newImage('assets/images/teeth_dead.png')
     images.eyeGuy = love.graphics.newImage('assets/images/eyeGuy.png')
     images.eyeGuy_dead = love.graphics.newImage('assets/images/eyeGuy_dead.png')
+  
+    images.table = love.graphics.newImage('assets/images/table.png')
+    images.pot_empty = love.graphics.newImage('assets/images/pot_empty.png')
+    images.pot_full = love.graphics.newImage('assets/images/pot_full.png')
+    
+    images.chef = {}
+    images.chef.sheet = love.graphics.newImage('assets/images/chef.png')
+    images.chef.down = love.graphics.newQuad(0, 0, 32, 32, images.chef.sheet:getDimensions())
+    images.chef.right = love.graphics.newQuad(32, 0, 32, 32, images.chef.sheet:getDimensions())
+    images.chef.up = love.graphics.newQuad(64, 0, 32, 32, images.chef.sheet:getDimensions())
+    images.chef.left = love.graphics.newQuad(96, 0, 32, 32, images.chef.sheet:getDimensions())
 
     State.switch(game.states.game)
 

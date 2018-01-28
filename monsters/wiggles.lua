@@ -6,7 +6,7 @@ local Wiggles = Class{
 
 function Wiggles:init(x, y, direction)
 
-    Monster(x, y, images.wiggles, direction)
+    Monster.init(self, x, y, images.wiggles, direction)
 
 end
 

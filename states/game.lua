@@ -5,19 +5,27 @@ local Shelly = require 'monsters/shelly'
 local Stalks = require 'monsters/stalks'
 local Hunter = require 'monsters/hunter'
 local Kitchen = require 'kitchen/kitchen'
+local Items = require 'players/chef/items'
 
 local GameState = {}
 
 function GameState:enter(previous, level)
 
+    --Cooking
+    game.items = Group(true)
+    game.appliances = Group(true)
+
+    game.kitchen = Kitchen()
+    game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
+
+    Items.Wiggles(game.kitchen.offsetX, game.kitchen.offsetY)
+    
+    --Combat
     game.objects = Group(true)
     game.monsters = Group()
     game.corpses = Group()
-    
-    game.kitchen = Kitchen()
 
     game.fighter = Fighter(300, 100)
-    game.chef = Chef(32*3+game.kitchen.offsetX, 32*2+game.kitchen.offsetY)
     local newMonster = Wiggles(350, 100)
     local newerMonster = Shelly(450, 100)
     local newestMonster = Stalks(400, 100)
@@ -38,7 +46,6 @@ function GameState:enter(previous, level)
         wall.static = true
     end
 
-
 end
 
 function GameState:update(dt)
@@ -47,6 +54,8 @@ function GameState:update(dt)
 
     --Cooking
     game.chef:update(dt)
+    game.items:update(dt)
+    game.appliances:update(dt)
 
     --Combat
     game.fighter:update(dt)
@@ -62,6 +71,8 @@ function GameState:draw()
     love.graphics.setColor(200, 200, 200)
     love.graphics.rectangle('fill', 0, 0, 240, 270)
     game.kitchen:draw()
+    game.appliances:draw()
+    game.items:draw()
 
     game.chef:draw()
 
@@ -93,7 +104,7 @@ end
 function GameState:joystickpressed(joystick, button)
 
     if joystick == game.controller.controllerList[1] then
-
+        game.chef:joystickpressed(button)
     elseif joystick == game.controller.controllerList[2] then
         game.fighter:joystickpressed(button)
     end
