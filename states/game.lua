@@ -88,8 +88,9 @@ function GameState:draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(images.background2, 240, 0)
 
+    love.graphics.setColor(75, 75, 75)
     for i,wall in ipairs(self.walls) do
-        wall:draw('line')
+        wall:draw('fill')
     end
 
     game.objects:draw()

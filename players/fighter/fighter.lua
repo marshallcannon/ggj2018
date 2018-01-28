@@ -48,9 +48,9 @@ function Fighter:draw()
 
     love.graphics.setColor(255, 255, 255)
     if self.direction == 'left' then
-        love.graphics.draw(self.image, self.position.x, self.position.y, 0, 1, 1, 0, 5)
+        love.graphics.draw(self.image, self.position.x, self.position.y, 0, 1, 1, 0, 4)
     elseif self.direction == 'right' then
-        love.graphics.draw(self.image, self.position.x, self.position.y, 0, -1, 1, self.width, 5)
+        love.graphics.draw(self.image, self.position.x, self.position.y, 0, -1, 1, self.width, 4)
     end
 
 end
